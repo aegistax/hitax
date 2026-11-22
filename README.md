@@ -24,8 +24,10 @@
 1. GitHub 계정 aegistax에 새 저장소 `hitax` (Public) 생성
 2. apps-script 폴더를 뺀 나머지 파일 업로드
 3. Settings → Pages → Branch: main / (root) 저장
-4. 예스닉 DNS에 CNAME 추가: 호스트 `hitax` → 값 `aegistax.github.io`
-5. Pages 설정에서 Custom domain이 hitax.aegistax.kr로 잡히면 Enforce HTTPS 체크
+4. 도메인 구입처 DNS 관리에서 레코드 추가 (hitax.io.kr)
+   - A 레코드 4개: 호스트 비움(또는 @) → 185.199.108.153 / 185.199.109.153 / 185.199.110.153 / 185.199.111.153
+   - CNAME 1개: 호스트 `www` → `aegistax.github.io`
+5. Pages 설정에서 Custom domain이 hitax.io.kr로 잡히면 Enforce HTTPS 체크
 
 ## 3. GitHub 토큰 발급 (최초 1회)
 1. GitHub 로그인 → 우측 상단 프로필 → Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token
@@ -55,4 +57,4 @@
 ※ 샘플 페이지(qna/001, 002)는 정식 오픈 전에 GitHub에서 삭제하고 posts.json을 `[]`로 비우세요.
 
 ## 5. 검색 등록
-- 구글 서치콘솔, 네이버 서치어드바이저에 hitax.aegistax.kr 등록 후 sitemap.xml 제출
+- 구글 서치콘솔, 네이버 서치어드바이저에 hitax.io.kr 등록 후 sitemap.xml 제출

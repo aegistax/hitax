@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /ask.html
-Sitemap: https://hitax.aegistax.kr/sitemap.xml
+Sitemap: https://hitax.io.kr/sitemap.xml
