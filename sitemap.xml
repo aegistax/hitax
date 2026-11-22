@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://hitax.io.kr/</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://hitax.io.kr/about.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://hitax.io.kr/qna/001.html</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://hitax.io.kr/about.html</loc></url>
+  <url><loc>https://hitax.io.kr/terms.html</loc></url>
+  <url><loc>https://hitax.io.kr/privacy.html</loc></url>
+  <url><loc>https://hitax.io.kr/qna/003.html</loc><lastmod>2026-11-22</lastmod></url>
   <url><loc>https://hitax.io.kr/qna/002.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://hitax.io.kr/terms.html</loc><lastmod>2026-11-22</lastmod></url>
-  <url><loc>https://hitax.io.kr/privacy.html</loc><lastmod>2026-11-22</lastmod></url>
+  <url><loc>https://hitax.io.kr/qna/001.html</loc><lastmod>2026-11-22</lastmod></url>
 </urlset>
