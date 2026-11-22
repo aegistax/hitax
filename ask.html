@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>질문하기 | 하이택스 HI Tax</title>
+<meta name="description" content="사업자 세금 질문 또는 AI 답변 검토를 요청하세요. 세무사가 답변하며, 질문과 답변은 공개됩니다.">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><b>HI <span>Tax</span></b><small>하이택스</small></a>
+    <nav class="nav">
+      <a href="index.html">Q&amp;A</a>
+      <a href="about.html">서비스 안내</a>
+      <a href="ask.html" class="cta">질문하기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap" style="max-width:680px">
+  <div class="steps"><i></i><i></i><i></i><i></i></div>
+
+  <form id="f" class="panel" novalidate>
+    <!-- 스팸 방지용 숨김 필드 (사람은 비워둠) -->
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
+
+    <!-- 1단계: 유형 선택 -->
+    <div class="step" data-step="1">
+      <h2>1. 어떤 도움이 필요하세요?</h2>
+      <p class="muted">질문 유형을 선택해 주세요.</p>
+      <div class="type-pick">
+        <label data-v="general">
+          <input type="radio" name="type" value="general">
+          <b>세무사에게 바로 질문</b>
+          <span>사업자 세금에 관해 궁금한 점을 직접 질문합니다.</span>
+        </label>
+        <label data-v="ai">
+          <input type="radio" name="type" value="ai">
+          <b>AI 답변 검토 요청</b>
+          <span>ChatGPT·Claude 등 AI에게 받은 답변을 세무사에게 검토받습니다.</span>
+        </label>
+      </div>
+      <div class="err" id="e1">유형을 선택해 주세요.</div>
+    </div>
+
+    <!-- 2단계: 질문 작성 -->
+    <div class="step" data-step="2" hidden>
+      <h2>2. 질문을 작성해 주세요</h2>
+      <div class="warn">⚠️ 질문과 답변은 <b>누구나 볼 수 있게 공개</b>됩니다. 이름·상호·주민번호·사업자번호·주소·연락처·계좌 등 <b>개인을 알아볼 수 있는 정보는 적지 마세요.</b></div>
+
+      <div class="field">
+        <label>사업 형태</label>
+        <select name="biz">
+          <option value="">선택</option>
+          <option>개인사업자(일반과세자)</option>
+          <option>개인사업자(간이과세자)</option>
+          <option>법인사업자</option>
+          <option>사업 준비 중</option>
+          <option>기타</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>분야</label>
+        <select name="cat">
+          <option value="">선택</option>
+          <option>부가가치세</option><option>종합소득세</option><option>법인세</option>
+          <option>원천세·인건비</option><option>경비처리</option><option>사업자등록·폐업</option>
+          <option>4대보험</option><option>기타</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>제목</label>
+        <input type="text" name="title" maxlength="80" placeholder="예) 간이과세자인데 세금계산서를 발행해야 하나요?">
+      </div>
+
+      <div class="field ai-only" hidden>
+        <label>사용한 AI</label>
+        <select name="aiName">
+          <option value="">선택</option>
+          <option>ChatGPT</option><option>Claude</option><option>Gemini</option>
+          <option>네이버 클로바X·큐</option><option>기타</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label><span class="q-label">질문 내용</span></label>
+        <textarea name="question" maxlength="3000" placeholder="상황을 구체적으로 적을수록 정확한 답변이 가능합니다. (업종, 시기, 금액 규모 등)"></textarea>
+        <div class="counter"><span data-count="question">0</span> / 3000</div>
+      </div>
+
+      <div class="field ai-only" hidden>
+        <label>AI가 준 답변 <small>(그대로 붙여넣기)</small></label>
+        <textarea name="aiAnswer" maxlength="6000" placeholder="AI에게 받은 답변을 붙여넣어 주세요."></textarea>
+        <div class="counter"><span data-count="aiAnswer">0</span> / 6000</div>
+        <div class="hint">AI 답변 안에도 개인정보가 들어 있다면 지운 뒤 붙여넣어 주세요.</div>
+      </div>
+      <div class="err" id="e2">필수 항목을 입력해 주세요.</div>
+    </div>
+
+    <!-- 3단계: 공개 동의 -->
+    <div class="step" data-step="3" hidden>
+      <h2>3. 이용약관에 동의해 주세요</h2>
+      <p class="muted">아래 내용에 동의하셔야 서비스를 이용하실 수 있습니다.</p>
+      <div class="agree">
+        <div class="box">
+          1. 작성하신 질문(AI 답변 포함)과 세무사의 답변은 <b>누구나 접근할 수 있는 웹페이지에 공개</b>되며, 검색엔진에 노출되거나 제3자에 의해 공유될 수 있습니다.<br>
+          2. 답변은 작성 시점의 세법에 따른 <b>일반적인 정보 제공</b>입니다. 개별 사실관계에 따라 해석이나 판단이 달라질 수 있습니다.<br>
+          3. 답변은 개별 사안에 대한 판단을 제시하지 않으며, <b>세금 신고나 조세불복의 근거로 활용할 수 없습니다.</b><br>
+          4. 운영자는 개인정보 보호와 가독성을 위해 질문을 편집하거나, 모든 질문에 답변하거나 게시하지 않을 수 있습니다.
+        </div>
+        <label><input type="checkbox" name="agreeTerms" value="Y"> [필수] 위 내용 및 이용약관에 동의합니다.</label>
+        <a href="terms.html" target="_blank">이용약관 전문 보기</a>
+      </div>
+      <div class="err" id="e3">이용약관에 동의해 주세요.</div>
+    </div>
+
+    <!-- 4단계: 이메일 -->
+    <div class="step" data-step="4" hidden>
+      <h2>4. 답변 받을 이메일</h2>
+      <p class="muted">답변이 등록되면 이 주소로 알려드립니다. 이메일은 공개되지 않습니다.</p>
+      <div class="field">
+        <label>이메일</label>
+        <input type="email" name="email" placeholder="example@email.com" autocomplete="email">
+      </div>
+      <div class="agree">
+        <div class="box">
+          <b>개인정보 수집·이용 동의</b><br>
+          · 수집 항목: 이메일 주소<br>
+          · 수집·이용 목적: 질문 접수 확인 및 답변 회신<br>
+          · 보유 및 이용 기간: 질문 접수일로부터 2년 (삭제 요청 시 지체 없이 파기)<br>
+          · 동의를 거부할 권리가 있으며, 거부 시 서비스 이용이 제한됩니다.
+        </div>
+        <label><input type="checkbox" name="agreePrivacy" value="Y"> [필수] 개인정보 수집·이용에 동의합니다.</label>
+        <a href="privacy.html" target="_blank">개인정보처리방침 보기</a>
+      </div>
+      <div class="err" id="e4">이메일 형식과 동의 여부를 확인해 주세요.</div>
+    </div>
+
+    <!-- 완료 -->
+    <div class="step done" data-step="5" hidden>
+      <div class="icon">✅</div>
+      <h2>질문이 접수되었습니다</h2>
+      <p>접수번호 <b id="ticket"></b></p>
+      <p class="muted">답변이 등록되면 입력하신 이메일로 알려드립니다.<br>질문 내용에 따라 답변이 늦어지거나 답변드리지 못할 수 있습니다.</p>
+      <a class="btn ghost" href="index.html">Q&amp;A 목록으로</a>
+    </div>
+
+    <div class="nav-btns" id="navBtns">
+      <button type="button" class="btn ghost" id="prev">이전</button>
+      <button type="button" class="btn primary" id="next">다음</button>
+    </div>
+  </form>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="about.html">서비스 안내</a>
+      <a href="terms.html">이용약관</a>
+      <a href="privacy.html"><b>개인정보처리방침</b></a>
+    </div>
+    하이택스(HI Tax)는 이지스세무회계컨설팅이 운영합니다.<br>
+    이지스세무회계컨설팅 | 세무사 남궁찬호 | 사업자등록번호 881-01-03612<br>
+    서울특별시 강동구 고덕비즈밸리로 26, B동 226호 (강동U1센터) | 02-6072-0526 | mail@aegistax.kr
+  </div>
+</footer>
+
+<script>
+/* ▼ 구글 Apps Script 웹앱 배포 후 받은 URL을 넣으세요. 비워두면 미리보기(데모) 모드로 동작합니다. */
+const APPS_SCRIPT_URL = "";
+
+const f = document.getElementById('f');
+const steps = [...document.querySelectorAll('.step')];
+const bars = [...document.querySelectorAll('.steps i')];
+let cur = 1;
+
+// URL로 유형 미리 선택 (?type=general / ?type=ai)
+const preset = new URLSearchParams(location.search).get('type');
+if (preset === 'general' || preset === 'ai') pickType(preset);
+
+document.querySelectorAll('.type-pick label').forEach(l =>
+  l.addEventListener('click', () => pickType(l.dataset.v)));
+
+function pickType(v){
+  f.type.value = v;
+  document.querySelectorAll('.type-pick label').forEach(l => l.classList.toggle('sel', l.dataset.v === v));
+  const ai = v === 'ai';
+  document.querySelectorAll('.ai-only').forEach(el => el.hidden = !ai);
+  document.querySelector('.q-label').textContent = ai ? 'AI에게 한 질문' : '질문 내용';
+}
+
+document.querySelectorAll('[data-count]').forEach(c => {
+  const t = f[c.dataset.count];
+  t.addEventListener('input', () => c.textContent = t.value.length);
+});
+
+function show(n){
+  cur = n;
+  steps.forEach(s => s.hidden = Number(s.dataset.step) !== n);
+  bars.forEach((b, i) => b.classList.toggle('on', i < n));
+  document.getElementById('prev').style.visibility = n > 1 ? 'visible' : 'hidden';
+  document.getElementById('next').textContent = n === 4 ? '질문 등록' : '다음';
+  document.getElementById('navBtns').hidden = n === 5;
+  document.querySelectorAll('.err').forEach(e => e.style.display = 'none');
+  window.scrollTo(0, 0);
+}
+
+function valid(n){
+  if (n === 1) return !!f.type.value;
+  if (n === 2){
+    const base = f.biz.value && f.cat.value && f.title.value.trim().length >= 5 && f.question.value.trim().length >= 10;
+    if (f.type.value === 'ai') return base && f.aiName.value && f.aiAnswer.value.trim().length >= 10;
+    return base;
+  }
+  if (n === 3) return f.agreeTerms.checked;
+  if (n === 4) return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()) && f.agreePrivacy.checked;
+  return true;
+}
+
+document.getElementById('prev').addEventListener('click', () => show(cur - 1));
+document.getElementById('next').addEventListener('click', async () => {
+  if (!valid(cur)){ document.getElementById('e' + cur).style.display = 'block'; return; }
+  if (cur < 4) return show(cur + 1);
+  await submit();
+});
+
+function makeTicket(){
+  const d = new Date(), p = x => String(x).padStart(2, '0');
+  return 'HT-' + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) + '-' +
+         Math.random().toString(36).slice(2, 6).toUpperCase();
+}
+
+async function submit(){
+  if (f.website.value) return; // 봇 차단
+  const btn = document.getElementById('next');
+  btn.disabled = true; btn.textContent = '등록 중…';
+  const ticket = makeTicket();
+  const data = new URLSearchParams({
+    ticket, type: f.type.value === 'ai' ? 'AI 답변 검토' : '세무사 Q&A',
+    biz: f.biz.value, cat: f.cat.value, title: f.title.value.trim(),
+    question: f.question.value.trim(), aiName: f.aiName.value, aiAnswer: f.aiAnswer.value.trim(),
+    email: f.email.value.trim(), agreeTerms: 'Y', agreePrivacy: 'Y'
+  });
+  try{
+    if (APPS_SCRIPT_URL){
+      await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', body:data });
+    } else {
+      console.log('[데모 모드] 전송될 데이터', Object.fromEntries(data));
+    }
+    document.getElementById('ticket').textContent = ticket;
+    show(5);
+  }catch(e){
+    btn.disabled = false; btn.textContent = '질문 등록';
+    const er = document.getElementById('e4');
+    er.textContent = '전송에 실패했습니다. 잠시 후 다시 시도하거나 mail@aegistax.kr로 문의해 주세요.';
+    er.style.display = 'block';
+  }
+}
+show(1);
+</script>
+</body>
+</html>

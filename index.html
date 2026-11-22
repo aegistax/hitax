@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>하이택스 HI Tax | 사업자 세금 질문, 세무사가 답합니다</title>
+<meta name="description" content="사업자 세금 질문에 세무사가 직접 답하는 공개 Q&A. AI에게 받은 세무 답변을 세무사가 검토해 드립니다. 이지스세무회계컨설팅 운영.">
+<link rel="canonical" href="https://hitax.aegistax.kr/">
+<meta property="og:title" content="하이택스 HI Tax">
+<meta property="og:description" content="AI에게 물었다면, 이제 HI에게. 사업자 세금 Q&A와 AI 답변 세무사 검토.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="index.html"><b>HI <span>Tax</span></b><small>하이택스</small></a>
+    <nav class="nav">
+      <a href="index.html" class="on">Q&amp;A</a>
+      <a href="about.html">서비스 안내</a>
+      <a href="ask.html" class="cta">질문하기</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="define">HI = Human Intelligence</div>
+    <h1>AI에게 물었다면,<br>이제 <em>HI</em>에게 물어보세요</h1>
+    <p>사업자 세금 질문에 세무사가 직접 답하고,<br>AI에게 받은 세무 답변은 세무사가 한 번 더 살펴봅니다.</p>
+    <div class="choice">
+      <a class="hi" href="ask.html?type=general">
+        <b>세무사에게 바로 질문</b>
+        <span>부가세·종합소득세·원천세·경비처리 등 사업자 세금 궁금증을 질문하세요.</span>
+      </a>
+      <a class="ai" href="ask.html?type=ai">
+        <b>AI 답변 검토 요청</b>
+        <span>ChatGPT·Claude 등에서 받은 답변을 붙여넣으면 세무사가 검토 의견을 드립니다.</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>최근 질문과 답변</h2>
+    <div class="toolbar">
+      <button class="tab on" data-f="all">전체</button>
+      <button class="tab" data-f="general">세무사 Q&amp;A</button>
+      <button class="tab" data-f="ai">AI 답변 검토</button>
+      <input class="search" id="q" type="search" placeholder="키워드 검색 (예: 식대, 차량, 간이과세)">
+    </div>
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty">검색 결과가 없습니다. <a href="ask.html">직접 질문해 보세요.</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="about.html">서비스 안내</a>
+      <a href="terms.html">이용약관</a>
+      <a href="privacy.html"><b>개인정보처리방침</b></a>
+    </div>
+    하이택스(HI Tax)는 이지스세무회계컨설팅이 운영합니다.<br>
+    이지스세무회계컨설팅 | 세무사 남궁찬호 | 사업자등록번호 881-01-03612<br>
+    서울특별시 강동구 고덕비즈밸리로 26, B동 226호 (강동U1센터) | 02-6072-0526 | mail@aegistax.kr<br>
+    게시된 답변은 작성 시점 세법에 따른 일반적인 안내이며, 개별 사안에 대한 판단이 아닙니다.
+  </div>
+</footer>
+
+<script>
+/* Q&A 목록은 posts.json에서 불러옵니다.
+   구글 시트의 [하이택스 > 공개] 메뉴가 posts.json을 자동으로 갱신합니다. */
+let POSTS = [];
+const listEl = document.getElementById('list');
+const emptyEl = document.getElementById('empty');
+let filter = 'all', keyword = '';
+
+function render(){
+  const k = keyword.trim().toLowerCase();
+  const rows = POSTS.filter(p =>
+    (filter === 'all' || p.type === filter) &&
+    (!k || (p.title + p.summary + p.cat).toLowerCase().includes(k))
+  );
+  listEl.innerHTML = rows.map(p => `
+    <a class="card" href="qna/${p.id}.html">
+      <div class="meta">
+        <span class="badge ${p.type === 'ai' ? 'ai' : 'hi'}">${p.type === 'ai' ? 'AI 답변 검토' : '세무사 Q&A'}</span>
+        <span class="badge cat">${p.cat}</span>
+        <span>${p.date}</span>
+      </div>
+      <h3>${p.title}</h3>
+      <p>${p.summary}</p>
+    </a>`).join('');
+  emptyEl.style.display = rows.length ? 'none' : 'block';
+}
+document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+  b.classList.add('on'); filter = b.dataset.f; render();
+}));
+document.getElementById('q').addEventListener('input', e => { keyword = e.target.value; render(); });
+fetch('posts.json?v=' + Date.now())
+  .then(r => r.json())
+  .then(d => { POSTS = d; render(); })
+  .catch(() => { emptyEl.textContent = '목록을 불러오지 못했습니다. 잠시 후 새로고침해 주세요.'; emptyEl.style.display = 'block'; });
+</script>
+</body>
+</html>
